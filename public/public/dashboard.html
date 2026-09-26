@@ -1,15 +1,172 @@
 <!DOCTYPE html>
-<html dir="rtl">
+<html lang="he" dir="rtl">
+
 <head>
-<meta charset="utf-8">
-<title>דשבורד סד"כ</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>סד"כ בית הערבה</title>
+
+<style>
+
+body{
+    font-family:Arial,sans-serif;
+    max-width:1000px;
+    margin:auto;
+    padding:20px;
+}
+
+h1{
+    text-align:center;
+}
+
+.summary{
+    display:flex;
+    gap:20px;
+    margin-bottom:20px;
+}
+
+.card{
+    flex:1;
+    padding:15px;
+    border-radius:10px;
+    color:white;
+    text-align:center;
+    font-size:22px;
+    font-weight:bold;
+}
+
+.green{
+    background:#2e7d32;
+}
+
+.red{
+    background:#d32f2f;
+}
+
+.gray{
+    background:#616161;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th,td{
+    padding:12px;
+    border:1px solid #ddd;
+}
+
+th{
+    background:#1976d2;
+    color:white;
+}
+
+</style>
+
 </head>
 
 <body>
 
-<h1>דשבורד בית הערבה</h1>
+<h1>סד"כ כיתת הכוננות - בית הערבה</h1>
 
-<p>המערכת פועלת ✅</p>
+<div class="summary">
+
+<div class="card green">
+🟢 <span id="available">0</span>
+</div>
+
+<div class="card red">
+🔴 <span id="unavailable">0</span>
+</div>
+
+<div class="card gray">
+⚪ <span id="unknown">0</span>
+</div>
+
+</div>
+
+<table>
+
+<thead>
+<tr>
+<th>שם</th>
+<th>סטטוס</th>
+<th>עדכון אחרון</th>
+</tr>
+</thead>
+
+<tbody id="tableBody">
+</tbody>
+
+</table>
+
+<script>
+
+async function loadData(){
+
+const res =
+await fetch("/api/status");
+
+const data =
+await res.json();
+
+let available = 0;
+let unavailable = 0;
+let unknown = 0;
+
+let html = "";
+
+data.forEach(member=>{
+
+let statusText = "";
+
+if(member.status==="available"){
+statusText="🟢 זמין";
+available++;
+}
+
+else if(member.status==="unavailable"){
+statusText="🔴 לא זמין";
+unavailable++;
+}
+
+else{
+statusText="⚪ לא ידוע";
+unknown++;
+}
+
+html += `
+<tr>
+<td>${member.name}</td>
+<td>${statusText}</td>
+<td>${new Date(member.updated)
+.toLocaleString("he-IL")}</td>
+</tr>
+`;
+
+});
+
+document.getElementById("available")
+.innerText = available;
+
+document.getElementById("unavailable")
+.innerText = unavailable;
+
+document.getElementById("unknown")
+.innerText = unknown;
+
+document.getElementById("tableBody")
+.innerHTML = html;
+
+}
+
+loadData();
+
+setInterval(loadData,5000);
+
+</script>
 
 </body>
 </html>
