@@ -141,8 +141,12 @@ html += `
 <tr>
 <td>${member.name}</td>
 <td>${statusText}</td>
-<td>${new Date(member.updated)
-.toLocaleString("he-IL")}</td>
+<td>${
+  member.updated
+    ? new Date(member.updated)
+        .toLocaleString("he-IL")
+    : "-"
+}</td>
 </tr>
 `;
 
