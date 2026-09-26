@@ -7,7 +7,7 @@ app.use(cors());
 app.use(express.json());
 
 app.get("/", (req, res) => {
-  res.send("בית הערבה סדכ עובד");
+ res.send("✅ בית הערבה - מערכת סד\"כ כיתת כוננות");
 });
 
 const PORT = process.env.PORT || 3000;
