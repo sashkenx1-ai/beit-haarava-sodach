@@ -60,7 +60,7 @@ app.get("/api/me", (req, res) => {
   res.json(member);
 });
 
-app.post("/api/update", (req, res) => {
+app.post("/api/update", async (req, res) => {
 
   const { token, lat, lng } = req.body;
 
@@ -84,42 +84,61 @@ app.post("/api/update", (req, res) => {
   const available =
     distance <= RADIUS_KM;
 
-  statusDB[token] = {
-    name: member.name,
-    available,
-    updated: new Date().toISOString()
-  };
+  await db
+    .collection("membersStatus")
+    .doc(token)
+    .set({
+      token,
+      name: member.name,
+      available,
+      updated: new Date().toISOString()
+    });
 
   res.json({
     success: true,
     available
   });
-});
 
-app.get("/api/status", (req, res) => {
+});
+``
+
+app.get("/api/status", async (req, res) => {
+
+  const snapshot =
+    await db
+      .collection("membersStatus")
+      .get();
 
   const now = Date.now();
 
-  const data =
-    Object.values(statusDB).map(item => {
+  const result = [];
 
-      const ageHours =
-        (now - new Date(item.updated))
-        / 1000 / 60 / 60;
+  snapshot.forEach(doc => {
 
-      return {
-        ...item,
-        status:
-          ageHours > 24
-            ? "unknown"
-            : item.available
-              ? "available"
-              : "unavailable"
-      };
+    const item = doc.data();
+
+    const ageHours =
+      (now -
+        new Date(item.updated).getTime())
+      / 1000 / 60 / 60;
+
+    result.push({
+
+      ...item,
+
+      status:
+        ageHours > 24
+          ? "unknown"
+          : item.available
+            ? "available"
+            : "unavailable"
 
     });
 
-  res.json(data);
+  });
+
+  res.json(result);
+
 });
 
 const PORT =
