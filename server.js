@@ -108,20 +108,39 @@ app.get("/api/status", async (req, res) => {
       .collection("membersStatus")
       .get();
 
-  const now = Date.now();
-
-  const result = [];
+  const firestoreData = {};
 
   snapshot.forEach(doc => {
 
     const item = doc.data();
+
+    firestoreData[item.token] = item;
+
+  });
+
+  const now = Date.now();
+
+  const result = members.map(member => {
+
+    const item =
+      firestoreData[member.token];
+
+    if (!item) {
+
+      return {
+        token: member.token,
+        name: member.name,
+        status: "unknown"
+      };
+
+    }
 
     const ageHours =
       (now -
         new Date(item.updated).getTime())
       / 1000 / 60 / 60;
 
-    result.push({
+    return {
 
       ...item,
 
@@ -132,14 +151,13 @@ app.get("/api/status", async (req, res) => {
             ? "available"
             : "unavailable"
 
-    });
+    };
 
   });
 
   res.json(result);
 
 });
-
 const PORT =
   process.env.PORT || 3000;
 
