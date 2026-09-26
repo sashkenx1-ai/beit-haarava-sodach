@@ -4,9 +4,9 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
-  },
-  "dependencies": {
-    "express": "^4.21.0",
-    "cors": "^2.8.5"
-  }
+ "dependencies": {
+  "express": "^4.21.0",
+  "cors": "^2.8.5",
+  "firebase-admin": "^13.0.0"
+}
 }
