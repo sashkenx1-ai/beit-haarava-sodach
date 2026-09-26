@@ -1,10 +1,21 @@
 [
-  {
-    "name": "שרון אשכנזי",
-    "token": "token001"
-  },
-  {
-    "name": "חבר לדוגמה",
-    "token": "token002"
-  }
+  { "name": "בני נגני", "token": "member001" },
+  { "name": "זוהר מרלי", "token": "member002" },
+  { "name": "אביתר זיני", "token": "member003" },
+  { "name": "אדם נצר", "token": "member004" },
+  { "name": "אורן לוי", "token": "member005" },
+  { "name": "אייל כהן", "token": "member006" },
+  { "name": "ג'ייסון רוט", "token": "member007" },
+  { "name": "גיא פיק הדיה", "token": "member008" },
+  { "name": "חביב כץ", "token": "member009" },
+  { "name": "יגאל בקינה", "token": "member010" },
+  { "name": "יואב בן-דויד", "token": "member011" },
+  { "name": "יניב יחזקאל", "token": "member012" },
+  { "name": "מארק זוננברג", "token": "member013" },
+  { "name": "עמי ברמלי", "token": "member014" },
+  { "name": "רועי אלבג", "token": "member015" },
+  { "name": "רועי עזרא", "token": "member016" },
+  { "name": "רעות", "token": "member017" },
+  { "name": "שי נגר", "token": "member018" },
+  { "name": "תומר קאלי", "token": "member019" }
 ]
