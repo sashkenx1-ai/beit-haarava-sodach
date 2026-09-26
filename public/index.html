@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html dir="rtl">
+<head>
+<meta charset="utf-8">
+<title>כיתת כוננות בית הערבה</title>
+</head>
+<body>
+
+<h1>כיתת כוננות בית הערבה</h1>
+
+<button onclick="updateLocation()">
+עדכן זמינות
+</button>
+
+<div id="result"></div>
+
+<script>
+
+async function updateLocation(){
+
+navigator.geolocation.getCurrentPosition(
+async position=>{
+
+document.getElementById("result")
+.innerHTML =
+"🟢 מיקום התקבל";
+
+});
+}
+
+</script>
+
+</body>
+</html>
+`
