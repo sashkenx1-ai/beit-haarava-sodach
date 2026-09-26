@@ -22,7 +22,6 @@ const CENTER_LAT = 31.809384;
 const CENTER_LNG = 35.476829;
 const RADIUS_KM = 3;
 
-let statusDB = {};
 
 function distanceKm(lat1, lon1, lat2, lon2) {
 
