@@ -1,3 +1,4 @@
+const admin = require("firebase-admin");
 const express = require("express");
 const cors = require("cors");
 
@@ -8,7 +9,15 @@ app.use(express.json());
 app.use(express.static("public"));
 
 const members = require("./members.json");
+const serviceAccount = JSON.parse(
+  process.env.FIREBASE_SERVICE_ACCOUNT
+);
 
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount)
+});
+
+const db = admin.firestore();
 const CENTER_LAT = 31.809384;
 const CENTER_LNG = 35.476829;
 const RADIUS_KM = 3;
