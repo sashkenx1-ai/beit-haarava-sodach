@@ -1,35 +1,139 @@
 <!DOCTYPE html>
-<html dir="rtl">
+<html lang="he" dir="rtl">
+
 <head>
-<meta charset="utf-8">
-<title>כיתת כוננות בית הערבה</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>סד"כ בית הערבה</title>
+
+<style>
+
+body{
+    font-family:Arial,sans-serif;
+    max-width:600px;
+    margin:auto;
+    padding:20px;
+    text-align:center;
+}
+
+button{
+    width:100%;
+    padding:15px;
+    font-size:20px;
+    margin-top:20px;
+    border:none;
+    border-radius:8px;
+    background:#1976d2;
+    color:white;
+}
+
+#result{
+    margin-top:20px;
+    font-size:24px;
+    font-weight:bold;
+}
+
+</style>
+
 </head>
+
 <body>
 
-<h1>כיתת כוננות בית הערבה</h1>
+<h1>סד"כ כיתת הכוננות</h1>
+
+<h2 id="memberName">טוען...</h2>
 
 <button onclick="updateLocation()">
-עדכן זמינות
+עדכן מיקום
 </button>
 
 <div id="result"></div>
 
 <script>
 
+const params =
+    new URLSearchParams(window.location.search);
+
+const token =
+    params.get("token");
+
+async function loadMember(){
+
+    const res =
+        await fetch(`/api/me?token=${token}`);
+
+    if(!res.ok){
+
+        document.getElementById("memberName")
+            .innerHTML =
+            "קישור לא תקין";
+
+        return;
+    }
+
+    const member =
+        await res.json();
+
+    document.getElementById("memberName")
+        .innerHTML =
+        member.name;
+}
+
 async function updateLocation(){
 
-navigator.geolocation.getCurrentPosition(
-async position=>{
+    navigator.geolocation
+    .getCurrentPosition(
 
-document.getElementById("result")
-.innerHTML =
-"🟢 מיקום התקבל";
+    async pos=>{
 
-});
+        const lat =
+            pos.coords.latitude;
+
+        const lng =
+            pos.coords.longitude;
+
+        const res =
+            await fetch(
+                "/api/update",
+                {
+                    method:"POST",
+                    headers:{
+                        "Content-Type":
+                        "application/json"
+                    },
+                    body:JSON.stringify({
+                        token,
+                        lat,
+                        lng
+                    })
+                }
+            );
+
+        const result =
+            await res.json();
+
+        document.getElementById("result")
+            .innerHTML =
+            result.available
+            ? "🟢 זמין"
+            : "🔴 לא זמין";
+    },
+
+    err => {
+
+        document.getElementById("result")
+            .innerHTML =
+            "לא אושר שימוש במיקום";
+
+    });
+
 }
+
+loadMember();
 
 </script>
 
 </body>
+
 </html>
-`
