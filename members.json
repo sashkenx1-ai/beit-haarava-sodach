@@ -16,6 +16,10 @@
   { "name": "רועי אלבג", "token": "member015" },
   { "name": "רועי עזרא", "token": "member016" },
   { "name": "רעות", "token": "member017" },
-  { "name": "שי נגר", "token": "member018" },
+  { "name": "שי נגני", "token": "member018" },
   { "name": "תומר קאלי", "token": "member019" }
+{
+  "name": "שרון אשכנזי",
+  "token": "member020"
+}
 ]
