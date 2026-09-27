@@ -140,14 +140,55 @@ unknown++;
 
 html += `
 <tr>
+
 <td>${member.name}</td>
+
+<td>
+<select onchange="updateRole('${member.token}',this.value)">
+
+<option value="">בחר</option>
+
+<option value="לוחם"
+${member.role==="לוחם"?"selected":""}>
+לוחם
+</option>
+
+<option value="מככ"
+${member.role==="מככ"?"selected":""}>
+מכ"כ
+</option>
+
+<option value="מפקד כיתת כוננות"
+${member.role==="מפקד כיתת כוננות"?"selected":""}>
+מפקד כיתת כוננות
+</option>
+
+<option value="חובש"
+${member.role==="חובש"?"selected":""}>
+חובש
+</option>
+
+<option value="נהג"
+${member.role==="נהג"?"selected":""}>
+נהג
+</option>
+
+<option value="חמל"
+${member.role==="חמל"?"selected":""}>
+חמ"ל
+</option>
+
+</select>
+</td>
+
 <td>${statusText}</td>
+
 <td>${
-  member.updated
-    ? new Date(member.updated)
-        .toLocaleString("he-IL")
-    : "-"
+member.updated
+? new Date(member.updated).toLocaleString("he-IL")
+: "-"
 }</td>
+
 </tr>
 `;
 
@@ -166,7 +207,20 @@ document.getElementById("tableBody")
 .innerHTML = html;
 
 }
+async function updateRole(token, role){
 
+  await fetch("/api/update-role",{
+    method:"POST",
+    headers:{
+      "Content-Type":"application/json"
+    },
+    body:JSON.stringify({
+      token,
+      role
+    })
+  });
+
+}
 loadData();
 
 setInterval(loadData,5000);
