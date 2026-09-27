@@ -113,6 +113,12 @@ await fetch("/api/status");
 const data =
 await res.json();
 
+    data.sort((a, b) =>
+  a.name.localeCompare(
+    b.name,
+    "he"
+  )
+);
 let available = 0;
 let unavailable = 0;
 let unknown = 0;
