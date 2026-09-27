@@ -125,33 +125,37 @@ app.get("/api/status", async (req, res) => {
     const item =
       firestoreData[member.token];
 
-    if (!item) {
+ if (!item) {
 
-      return {
-        token: member.token,
-        name: member.name,
-        status: "unknown"
-      };
+  return {
+    token: member.token,
+    name: member.name,
+    role: "",
+    status: "unknown"
+  };
 
-    }
+}
+`
 
     const ageHours =
       (now -
         new Date(item.updated).getTime())
       / 1000 / 60 / 60;
 
-    return {
+   return {
 
-      ...item,
+  ...item,
 
-      status:
-        ageHours > 24
-          ? "unknown"
-          : item.available
-            ? "available"
-            : "unavailable"
+  role: item.role || "",
 
-    };
+  status:
+    ageHours > 24
+      ? "unknown"
+      : item.available
+        ? "available"
+        : "unavailable"
+
+};
 
   });
 
