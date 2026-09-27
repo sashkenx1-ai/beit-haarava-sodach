@@ -99,7 +99,6 @@ app.post("/api/update", async (req, res) => {
   });
 
 });
-``
 
 app.get("/api/status", async (req, res) => {
 
@@ -135,7 +134,6 @@ app.get("/api/status", async (req, res) => {
   };
 
 }
-`
 
     const ageHours =
       (now -
