@@ -158,6 +158,49 @@ app.get("/api/status", async (req, res) => {
   res.json(result);
 
 });
+app.post("/api/update-role", async (req, res) => {
+
+  const { token, role } = req.body;
+
+  const member =
+    members.find(m => m.token === token);
+
+  if (!member) {
+    return res.status(401).json({
+      error: "Unauthorized"
+    });
+  }
+
+  const docRef =
+    db.collection("membersStatus")
+      .doc(token);
+
+  const existing =
+    await docRef.get();
+
+  if (existing.exists) {
+
+    await docRef.update({
+      role
+    });
+
+  } else {
+
+    await docRef.set({
+      token,
+      name: member.name,
+      role,
+      available: false,
+      updated: new Date().toISOString()
+    });
+
+  }
+
+  res.json({
+    success: true
+  });
+
+});
 const PORT =
   process.env.PORT || 3000;
 
