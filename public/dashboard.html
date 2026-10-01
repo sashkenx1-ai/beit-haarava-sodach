@@ -250,6 +250,18 @@ async function updateRole(token, role){
   loadData();
 
 }
+    async function addMember(){
+
+  const name =
+    prompt("שם החבר החדש");
+
+  if(!name){
+    return;
+  }
+
+  alert("החבר: " + name);
+
+}
 loadData();
 
 setInterval(loadData,5000);
