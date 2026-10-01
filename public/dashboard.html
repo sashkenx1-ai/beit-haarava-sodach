@@ -87,13 +87,24 @@ th{
 
 </div>
 
-<div style="margin-bottom:20px;">
+<div style="margin-bottom:20px;display:flex;gap:10px;">
 
 <button onclick="addMember()">
 
 ➕ הוסף חבר
 
 </button>
+
+<input
+id="searchBox"
+type="text"
+placeholder="חפש חבר..."
+onkeyup="loadData()"
+style="
+flex:1;
+padding:10px;
+font-size:16px;
+">
 
 </div>
 
