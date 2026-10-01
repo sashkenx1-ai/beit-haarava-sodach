@@ -88,9 +88,10 @@ app.post("/api/update", async (req, res) => {
     .doc(token)
     .set({
       token,
-      name: member.name,
-      available,
-      updated: new Date().toISOString()
+     name: member.name,
+role: member.role || "",
+available,
+updated: new Date().toISOString()
     });
 
   res.json({
@@ -156,7 +157,20 @@ app.get("/api/status", async (req, res) => {
 };
 
   });
+result.sort((a, b) => {
 
+  const firstA =
+    a.name.split(" ")[0];
+
+  const firstB =
+    b.name.split(" ")[0];
+
+  return firstA.localeCompare(
+    firstB,
+    "he"
+  );
+
+});
   res.json(result);
 
 });
