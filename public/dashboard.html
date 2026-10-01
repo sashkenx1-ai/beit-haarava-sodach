@@ -192,12 +192,6 @@ member.status==="available"
 : member.status==="unavailable"
 ? "#ffebee"
 : "#f5f5f5";
-
-html += `
-<tr style="background:${rowColor}">
-
-<td>${member.name}</td>
-
 const roleColor =
 member.role==="רבשץ" ? "#ff9800" :
 member.role==="סגן רבשץ" ? "#ffb74d" :
@@ -206,6 +200,11 @@ member.role==="סמככ" ? "#64b5f6" :
 member.role==="חובש" ? "#4caf50" :
 member.role==="רחפן" ? "#9c27b0" :
 "#757575";
+    
+html += `
+<tr style="background:${rowColor}">
+
+<td>${member.name}</td>
 
 <td>
 <select
