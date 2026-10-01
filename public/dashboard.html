@@ -133,7 +133,11 @@ await fetch("/api/status");
 
 const data =
 await res.json();
-
+const search = (
+  document.getElementById(
+    "searchBox"
+  )?.value || ""
+).trim();
    data.sort((a, b) => {
 
   const firstA =
@@ -155,6 +159,14 @@ let unknown = 0;
 let html = "";
 
 data.forEach(member=>{
+
+if(
+  search &&
+  !member.name.includes(search)
+){
+  return;
+}
+
 
 let statusText = "";
 
