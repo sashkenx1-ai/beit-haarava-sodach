@@ -257,7 +257,16 @@ member.updated
 ? new Date(member.updated).toLocaleString("he-IL")
 : "-"
 }</td>
+<td>
 
+<button
+onclick="copyLink('${member.token}')">
+
+📋 העתק
+
+</button>
+
+</td>
 </tr>
 `;
 
@@ -292,6 +301,19 @@ async function updateRole(token, role){
   loadData();
 
 }
+function copyLink(token){
+
+  const link =
+    window.location.origin +
+    "/?token=" +
+    token;
+
+  navigator.clipboard
+    .writeText(link);
+
+  alert("הקישור הועתק");
+
+}    
     async function addMember(){
 
   const name =
