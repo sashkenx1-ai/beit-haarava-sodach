@@ -197,8 +197,19 @@ html += `
 
 <td>${member.name}</td>
 
+const roleColor =
+member.role==="רבשץ" ? "#ff9800" :
+member.role==="סגן רבשץ" ? "#ffb74d" :
+member.role==="מככ" ? "#2196f3" :
+member.role==="סמככ" ? "#64b5f6" :
+member.role==="חובש" ? "#4caf50" :
+member.role==="רחפן" ? "#9c27b0" :
+"#757575";
+
 <td>
-<select onchange="updateRole('${member.token}',this.value)">
+<select
+style="background:${roleColor};color:white;font-weight:bold;"
+onchange="updateRole('${member.token}',this.value)">
 
 <option value="">בחר</option>
 
