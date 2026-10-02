@@ -217,6 +217,50 @@ app.post("/api/update-role", async (req, res) => {
   });
 
 });
+app.post("/api/update-status", async (req, res) => {
+
+  const { token, status } = req.body;
+
+  const member =
+    members.find(m => m.token === token);
+
+  if (!member) {
+    return res.status(401).json({
+      error: "Unauthorized"
+    });
+  }
+
+  const docRef =
+    db.collection("membersStatus")
+      .doc(token);
+
+  const existing =
+    await docRef.get();
+
+  if (existing.exists) {
+
+    await docRef.update({
+      available: status === "available",
+      updated: new Date().toISOString()
+    });
+
+  } else {
+
+    await docRef.set({
+      token,
+      name: member.name,
+      role: "",
+      available: status === "available",
+      updated: new Date().toISOString()
+    });
+
+  }
+
+  res.json({
+    success: true
+  });
+
+});
 const PORT =
   process.env.PORT || 3000;
 
