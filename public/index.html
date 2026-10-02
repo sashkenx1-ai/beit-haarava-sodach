@@ -144,7 +144,33 @@ async function updateLocation(){
     });
 
 }
+async function setStatus(status){
 
+    const res =
+        await fetch(
+            "/api/update-status",
+            {
+                method:"POST",
+                headers:{
+                    "Content-Type":
+                    "application/json"
+                },
+                body:JSON.stringify({
+                    token,
+                    status
+                })
+            }
+        );
+
+    const result =
+        await res.json();
+
+    document.getElementById("result")
+        .innerHTML =
+        status === "available"
+        ? "🟢 זמין"
+        : "🔴 לא זמין";
+}
 loadMember();
 
 </script>
