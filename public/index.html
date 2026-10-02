@@ -47,7 +47,22 @@ button{
 <button onclick="updateLocation()">
 עדכן מיקום
 </button>
+<button
+onclick="setStatus('available')"
+style="background:#2e7d32;">
 
+🟢 זמין
+
+</button>
+
+<button
+onclick="setStatus('unavailable')"
+style="background:#d32f2f;">
+
+🔴 לא זמין
+
+</button>
+``
 <div id="result"></div>
 
 <script>
