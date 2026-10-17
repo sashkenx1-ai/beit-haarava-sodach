@@ -288,7 +288,71 @@ app.post("/api/update-name", async (req, res) => {
   });
 
 });
+const fs = require("fs");
 
+app.post("/api/add-member", async (req, res) => {
+  try {
+    const { name } = req.body;
+
+    if (!name) {
+      return res.status(400).json({
+        error: "Name required"
+      });
+    }
+
+    const nextId =
+      Math.max(
+        ...members.map(m =>
+          parseInt(
+            m.token.replace("member", "")
+          )
+        )
+      ) + 1;
+
+    const token =
+      "member" +
+      String(nextId).padStart(3, "0");
+
+    const newMember = {
+      token,
+      name
+    };
+
+    members.push(newMember);
+
+    fs.writeFileSync(
+      "./members.json",
+      JSON.stringify(
+        members,
+        null,
+        2
+      )
+    );
+
+    await db
+      .collection("membersStatus")
+      .doc(token)
+      .set({
+        token,
+        name,
+        role: "",
+        available: false,
+        updated: new Date().toISOString()
+      });
+
+    res.json({
+      success: true,
+      token
+    });
+
+  } catch (err) {
+    console.error(err);
+
+    res.status(500).json({
+      error: err.message
+    });
+  }
+});
 const PORT =
   process.env.PORT || 3000;
 app.listen(PORT, () => {
