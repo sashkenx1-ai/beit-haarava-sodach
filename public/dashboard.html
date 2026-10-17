@@ -321,18 +321,40 @@ function copyLink(token){
   alert("הקישור הועתק");
 
 }    
-    async function addMember(){
+async function addMember() {
 
   const name =
     prompt("שם החבר החדש");
 
-  if(!name){
+  if (!name) {
     return;
   }
 
-  alert("החבר: " + name);
+  const res =
+    await fetch(
+      "/api/add-member",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type":
+            "application/json"
+        },
+        body: JSON.stringify({
+          name
+        })
+      }
+    );
 
+  const result =
+    await res.json();
+
+  if (result.success) {
+    loadData();
+  } else {
+    alert("שגיאה בהוספת חבר");
+  }
 }
+``
 loadData();
 
 setInterval(loadData,5000);
