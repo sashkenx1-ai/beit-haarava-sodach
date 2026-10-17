@@ -256,14 +256,38 @@ app.post("/api/update-status", async (req, res) => {
 
   }
 
+   res.json({
+    success: true
+  });
+
+});
+
+app.post("/api/update-name", async (req, res) => {
+
+  const { token, name } = req.body;
+
+  const docRef =
+    db.collection("membersStatus")
+      .doc(token);
+
+  const existing =
+    await docRef.get();
+
+  if (!existing.exists) {
+    return res.status(404).json({
+      error: "Member not found"
+    });
+  }
+
+  await docRef.update({
+    name
+  });
+
   res.json({
     success: true
   });
 
 });
+
 const PORT =
   process.env.PORT || 3000;
-
-app.listen(PORT, () => {
-  console.log(`SODACH running on ${PORT}`);
-});
