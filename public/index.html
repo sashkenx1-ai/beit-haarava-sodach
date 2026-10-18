@@ -42,7 +42,27 @@ button{
 
 <h1>סד"כ כיתת הכוננות</h1>
 
-<h2 id="memberName">טוען...</h2>
+<div id="loginBox">
+    <input
+        id="tokenInput"
+        type="text"
+        placeholder="הכנס קוד אישי"
+        style="
+            width:100%;
+            padding:15px;
+            font-size:18px;
+            margin-top:20px;
+            box-sizing:border-box;
+        "
+    >
+
+    <button onclick="login()">
+        התחבר
+    </button>
+</div>
+
+<div id="mainApp" style="display:none;">
+    <h2 id="memberName"></h2>
 
 <button onclick="updateLocation()">
 עדכן מיקום
@@ -64,15 +84,27 @@ style="background:#d32f2f;">
 </button>
 
 <div id="result"></div>
-
+</div>
 <script>
 
 const params =
     new URLSearchParams(window.location.search);
 
-const token =
+let token =
+    localStorage.getItem("token") ||
     params.get("token");
+function login(){
 
+    token =
+        document.getElementById("tokenInput").value;
+
+    localStorage.setItem(
+        "token",
+        token
+    );
+
+    loadMember();
+}
 async function loadMember(){
 
     const res =
