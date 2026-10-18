@@ -84,15 +84,17 @@ app.post("/api/update", async (req, res) => {
     distance <= RADIUS_KM;
 
   await db
-    .collection("membersStatus")
-    .doc(token)
-    .set({
-      token,
-     name: member.name,
-role: member.role || "",
-available,
-updated: new Date().toISOString()
-    });
+  .collection("membersStatus")
+  .doc(token)
+  .set({
+    token,
+    name: member.name,
+    role: member.role || "",
+    available,
+    lat,
+    lng,
+    updated: new Date().toISOString()
+  });
 
   res.json({
     success: true,
