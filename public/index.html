@@ -97,52 +97,55 @@ async function loadMember(){
 
 async function updateLocation(){
 
-    navigator.geolocation
-    .getCurrentPosition(
+  document.getElementById("result").innerHTML =
+    "מאתר מיקום...";
 
-    async pos=>{
+  navigator.geolocation.getCurrentPosition(
 
-        const lat =
-            pos.coords.latitude;
+    async pos => {
 
-        const lng =
-            pos.coords.longitude;
+      const lat = pos.coords.latitude;
+      const lng = pos.coords.longitude;
 
-        const res =
-            await fetch(
-                "/api/update",
-                {
-                    method:"POST",
-                    headers:{
-                        "Content-Type":
-                        "application/json"
-                    },
-                    body:JSON.stringify({
-                        token,
-                        lat,
-                        lng
-                    })
-                }
-            );
+      const res = await fetch(
+        "/api/update",
+        {
+          method:"POST",
+          headers:{
+            "Content-Type":"application/json"
+          },
+          body:JSON.stringify({
+            token,
+            lat,
+            lng
+          })
+        }
+      );
 
-        const result =
-            await res.json();
+      const result = await res.json();
 
-        document.getElementById("result")
-            .innerHTML =
-            result.available
+      document.getElementById("result").innerHTML =
+        `✅ ${lat}, ${lng}<br>${
+          result.available
             ? "🟢 זמין"
-            : "🔴 לא זמין";
+            : "🔴 לא זמין"
+        }`;
     },
 
     err => {
 
-        document.getElementById("result")
-            .innerHTML =
-            "לא אושר שימוש במיקום";
+      document.getElementById("result").innerHTML =
+        "❌ " + err.message;
 
-    });
+    },
 
+    {
+      enableHighAccuracy:true,
+      timeout:15000,
+      maximumAge:0
+    }
+  );
+}
 }
 async function setStatus(status){
 
