@@ -117,6 +117,7 @@ font-size:16px;
 <th>סטטוס</th>
 <th>עדכון אחרון</th>
 <th>קישור</th>
+<th>מפה</th>
 <th>פעולות</th>
 ``    
 </tr>
@@ -259,15 +260,28 @@ member.updated
 : "-"
 }</td>
 <td>
-
 <button
 onclick="copyLink('${member.token}')">
-
 📋 העתק
-
 </button>
-
 </td>
+
+<td>
+${
+  member.lat && member.lng
+  ? `
+  <button
+  onclick="window.open(
+    'https://www.google.com/maps?q=${member.lat},${member.lng}',
+    '_blank'
+  )">
+  📍 מפה
+  </button>
+  `
+  : '-'
+}
+</td>
+
 <td>
 <button
 onclick="alert('בקרוב')">
