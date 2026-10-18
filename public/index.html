@@ -107,20 +107,38 @@ function login(){
 }
 async function loadMember(){
 
+    if(!token){
+        document.getElementById("loginBox").style.display =
+            "block";
+
+        document.getElementById("mainApp").style.display =
+            "none";
+
+        return;
+    }
+
     const res =
         await fetch(`/api/me?token=${token}`);
 
     if(!res.ok){
 
+        localStorage.removeItem("token");
+
         document.getElementById("memberName")
             .innerHTML =
-            "קישור לא תקין";
+            "קוד לא תקין";
 
         return;
     }
 
     const member =
         await res.json();
+
+    document.getElementById("loginBox").style.display =
+        "none";
+
+    document.getElementById("mainApp").style.display =
+        "block";
 
     document.getElementById("memberName")
         .innerHTML =
