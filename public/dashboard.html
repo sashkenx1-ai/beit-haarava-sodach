@@ -358,16 +358,17 @@ async function updateRole(token, role){
       role
     })
   });
-function logout(){
+
+  loadData();
+
+}
+    function logout(){
 
   localStorage.removeItem(
     "admin"
   );
 
   location.reload();
-
-}
-  loadData();
 
 }
 function copyLink(token){
