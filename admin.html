@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>מסך מנהל</title>
+
+<style>
+
+body{
+    font-family:Arial,sans-serif;
+    max-width:1200px;
+    margin:auto;
+    padding:20px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th,td{
+    border:1px solid #ccc;
+    padding:10px;
+    text-align:center;
+}
+
+th{
+    background:#1976d2;
+    color:white;
+}
+
+.available{
+    color:green;
+    font-weight:bold;
+}
+
+.unavailable{
+    color:red;
+    font-weight:bold;
+}
+
+</style>
+</head>
+<body>
+
+<h1>מסך ניהול סד"כ</h1>
+
+<table>
+
+<thead>
+<tr>
+<th>שם</th>
+<th>סטטוס</th>
+<th>קו רוחב</th>
+<th>קו אורך</th>
+<th>עדכון אחרון</th>
+</tr>
+</thead>
+
+<tbody id="membersTable">
+</tbody>
+
+</table>
+
+<script>
+
+async function loadMembers(){
+
+    const res =
+        await fetch("/api/members");
+
+    const members =
+        await res.json();
+
+    let html = "";
+
+    members.forEach(member=>{
+
+        html += `
+        <tr>
+            <td>${member.name}</td>
+
+            <td class="${
+                member.status === "available"
+                ? "available"
+                : "unavailable"
+            }">
+
+            ${
+                member.status === "available"
+                ? "🟢 זמין"
+                : "🔴 לא זמין"
+            }
+
+            </td>
+
+            <td>${member.lat || "-"}</td>
+            <td>${member.lng || "-"}</td>
+            <td>${member.lastUpdate || "-"}</td>
+
+        </tr>
+        `;
+    });
+
+    document.getElementById("membersTable").innerHTML =
+        html;
+}
+
+loadMembers();
+
+setInterval(
+    loadMembers,
+    10000
+);
+
+</script>
+
+</body>
+</html>
