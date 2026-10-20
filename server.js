@@ -7,8 +7,8 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.static("public"));
-const ADMIN_PASSWORD = "123456";
-const members = require("./members.json");
+const ADMIN_PASSWORD =
+  process.env.ADMIN_PASSWORD;const members = require("./members.json");
 const serviceAccount = JSON.parse(
   process.env.FIREBASE_SERVICE_ACCOUNT
 );
