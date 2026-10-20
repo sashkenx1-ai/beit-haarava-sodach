@@ -70,7 +70,9 @@ th{
 <body>
 
 <h1>סד"כ כיתת הכוננות - בית הערבה</h1>
-
+<button onclick="logout()">
+🚪 יציאה
+</button>
 <div class="summary">
 
 <div class="card green">
@@ -129,7 +131,45 @@ font-size:16px;
 </table>
 
 <script>
+const isAdmin =
+  localStorage.getItem("admin");
 
+if (isAdmin !== "true") {
+
+  const password =
+    prompt("הכנס סיסמת מנהל");
+
+  fetch("/api/admin-login", {
+    method: "POST",
+    headers: {
+      "Content-Type":
+        "application/json"
+    },
+    body: JSON.stringify({
+      password
+    })
+  })
+  .then(res => {
+    if (!res.ok) {
+      throw new Error();
+    }
+
+    localStorage.setItem(
+      "admin",
+      "true"
+    );
+
+  })
+  .catch(() => {
+
+    alert("סיסמה שגויה");
+
+    window.location.href =
+      "/";
+
+  });
+
+}
 async function loadData(){
 
 const res =
@@ -318,7 +358,15 @@ async function updateRole(token, role){
       role
     })
   });
+function logout(){
 
+  localStorage.removeItem(
+    "admin"
+  );
+
+  location.reload();
+
+}
   loadData();
 
 }
