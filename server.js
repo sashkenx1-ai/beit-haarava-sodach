@@ -7,7 +7,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.static("public"));
-
+const ADMIN_PASSWORD = "123456";
 const members = require("./members.json");
 const serviceAccount = JSON.parse(
   process.env.FIREBASE_SERVICE_ACCOUNT
@@ -42,7 +42,21 @@ function distanceKm(lat1, lon1, lat2, lon2) {
     Math.sqrt(1 - a)
   );
 }
+app.post("/api/admin-login", (req, res) => {
 
+  const { password } = req.body;
+
+  if (password === ADMIN_PASSWORD) {
+    return res.json({
+      success: true
+    });
+  }
+
+  res.status(401).json({
+    success: false
+  });
+
+});
 app.get("/api/me", (req, res) => {
 
   const token = req.query.token;
