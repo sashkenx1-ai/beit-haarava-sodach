@@ -362,7 +362,8 @@ async function updateRole(token, role){
   loadData();
 
 }
-    function logout(){
+
+function logout(){
 
   localStorage.removeItem(
     "admin"
@@ -371,7 +372,6 @@ async function updateRole(token, role){
   location.reload();
 
 }
-function copyLink(token){
 
   const link =
     window.location.origin +
