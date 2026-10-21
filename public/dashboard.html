@@ -362,29 +362,47 @@ async function updateRole(token, role){
   loadData();
 
 }
+    function logout(){
 
-function logout(){
-
-  localStorage.removeItem(
-    "admin"
-  );
+  localStorage.removeItem("admin");
 
   location.reload();
 
 }
+
+function copyLink(token){
 
   const link =
     window.location.origin +
     "/?token=" +
     token;
 
-  navigator.clipboard
-    .writeText(link);
+  navigator.clipboard.writeText(link);
 
   alert("הקישור הועתק");
 
-}    
+}
 async function addMember() {
+function logout(){
+
+  localStorage.removeItem("admin");
+
+  location.reload();
+S
+}
+
+function copyLink(token){
+
+  const link =
+    window.location.origin +
+    "/?token=" +
+    token;
+
+  navigator.clipboard.writeText(link);
+
+  alert("הקישור הועתק");
+
+}
 
   const name =
     prompt("שם החבר החדש");
