@@ -67,8 +67,7 @@ th{
 
 </head>
 
-<body>
-
+<body style="display:none;">
 <h1>סד"כ כיתת הכוננות - בית הערבה</h1>
 <button onclick="logout()">
 🚪 יציאה
@@ -159,7 +158,11 @@ if (isAdmin !== "true") {
       "true"
     );
 
-  })
+    document.body.style.display =
+      "block";
+
+    loadData();
+})
   .catch(() => {
 
     alert("סיסמה שגויה");
@@ -415,7 +418,14 @@ async function addMember() {
   }
 }
 
-loadData();
+if (isAdmin === "true") {
+
+  document.body.style.display =
+    "block";
+
+  loadData();
+
+}
 
 setInterval(loadData,5000);
 
