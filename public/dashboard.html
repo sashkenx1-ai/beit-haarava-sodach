@@ -314,16 +314,14 @@ ${
   member.lat && member.lng
   ? `
   <button
-  onclick="window.open(
-    'https://www.google.com/maps?q=${member.lat},${member.lng}',
-    '_blank'
-  )">
+  onclick="window.open('https://www.google.com/maps?q=${member.lat},${member.lng}','_blank')">
   📍 מפה
   </button>
   `
   : '-'
 }
 </td>
+
 
 <td>
 <button
