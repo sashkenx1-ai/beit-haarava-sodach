@@ -82,7 +82,13 @@ style="background:#d32f2f;">
 🔴 לא זמין
 
 </button>
+<button
+onclick="logout()"
+style="background:#666;">
 
+🚪 התנתק
+
+</button>
 <div id="result"></div>
 </div>
 <script>
@@ -102,7 +108,11 @@ function login(){
         "token",
         token
     );
-
+function logout(){
+    localStorage.removeItem("token");
+    localStorage.removeItem("admin");
+    location.reload();
+}
     loadMember();
 }
 async function loadMember(){
