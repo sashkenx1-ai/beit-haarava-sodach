@@ -160,12 +160,13 @@ app.get("/api/status", async (req, res) => {
 
  if (!item) {
 
-  return {
-    token: member.token,
-    name: member.name,
-    role: "",
-    status: "unknown"
-  };
+ return {
+  token: member.token,
+  name: member.name,
+  phone: member.phone || "",
+  role: "",
+  status: "unknown"
+};
 
 }
 
@@ -174,12 +175,10 @@ app.get("/api/status", async (req, res) => {
         new Date(item.updated).getTime())
       / 1000 / 60 / 60;
 
-   return {
-
+  return {
   ...item,
-
+  phone: member.phone || "",
   role: item.role || "",
-
   status:
     ageHours > 24
       ? "unknown"
