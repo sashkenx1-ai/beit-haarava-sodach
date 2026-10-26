@@ -309,7 +309,9 @@ onclick="copyLink('${member.token}')">
 📋 העתק
 </button>
 </td>
-
+<td>
+${member.phone || "-"}
+</td>
 <td>
 ${
   member.lat && member.lng
