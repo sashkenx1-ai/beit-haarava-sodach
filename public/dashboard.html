@@ -103,6 +103,9 @@ th{
 <button onclick="showAvailableNow()">
 🟢 מי זמין עכשיו
 </button>
+    <button onclick="exportMembers()">
+💾 גיבוי JSON
+</button>
 <input
 id="searchBox"
 type="text"
@@ -539,6 +542,50 @@ async function deleteMember(token, name){
   }
 
 }
+    async function exportMembers(){
+
+  const res =
+    await fetch("/api/status");
+
+  const data =
+    await res.json();
+
+  const blob =
+    new Blob(
+      [
+        JSON.stringify(
+          data,
+          null,
+          2
+        )
+      ],
+      {
+        type:
+          "application/json"
+      }
+    );
+
+  const url =
+    URL.createObjectURL(
+      blob
+    );
+
+  const a =
+    document.createElement("a");
+
+  a.href = url;
+
+  a.download =
+    "members-backup.json";
+
+  a.click();
+
+  URL.revokeObjectURL(
+    url
+  );
+
+}
+
     function logout(){
 
   localStorage.removeItem("admin");
