@@ -398,8 +398,54 @@ app.post("/api/update-phone", async (req, res) => {
   res.json({
     success: true
   });
+  });
+app.post("/api/delete-member", async (req, res) => {
+
+  try {
+
+    const { token } = req.body;
+
+    const index =
+      members.findIndex(
+        m => m.token === token
+      );
+
+    if (index === -1) {
+      return res.status(404).json({
+        error: "Member not found"
+      });
+    }
+
+    members.splice(index, 1);
+
+    fs.writeFileSync(
+      "./members.json",
+      JSON.stringify(
+        members,
+        null,
+        2
+      )
+    );
+
+    await db
+      .collection("membersStatus")
+      .doc(token)
+      .delete();
+
+    res.json({
+      success: true
+    });
+
+  } catch (err) {
+
+    res.status(500).json({
+      error: err.message
+    });
+
+  }
 
 });
+
 const PORT =
   process.env.PORT || 3000;
 app.listen(PORT, () => {
