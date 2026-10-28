@@ -397,6 +397,27 @@ async function updateRole(token, role){
   loadData();
 
 }
+    function openWhatsApp(phone){
+
+  const cleanPhone =
+    phone.replace(/\D/g, "");
+
+  let whatsappPhone =
+    cleanPhone;
+
+  if (cleanPhone.startsWith("0")) {
+    whatsappPhone =
+      "972" +
+      cleanPhone.substring(1);
+  }
+
+  window.open(
+    "https://wa.me/" +
+    whatsappPhone,
+    "_blank"
+  );
+
+}
     function logout(){
 
   localStorage.removeItem("admin");
