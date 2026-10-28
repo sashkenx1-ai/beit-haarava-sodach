@@ -453,12 +453,15 @@ async function updateRole(token, role){
     return;
   }
 
-  alert(
-    "נמצאו " +
-    phones.length +
-    " מספרים.\n\n" +
-    phones.join(", ")
-  );
+  navigator.clipboard.writeText(
+  phones.join(",")
+);
+
+alert(
+  "הועתקו " +
+  phones.length +
+  " מספרים ללוח"
+);
 
 }
     function logout(){
