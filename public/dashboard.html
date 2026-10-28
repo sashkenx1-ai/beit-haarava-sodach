@@ -311,6 +311,11 @@ onclick="copyLink('${member.token}')">
 </td>
 <td>
 ${member.phone || "-"}
+<br>
+<button
+onclick="updatePhone('${member.token}','${member.phone || ""}')">
+📞 ערוך
+</button>
 </td>
 <td>
 ${
@@ -350,7 +355,33 @@ document.getElementById("tableBody")
 
 }
 async function updateRole(token, role){
+async function updatePhone(token, currentPhone){
 
+  const phone =
+    prompt(
+      "הכנס מספר טלפון",
+      currentPhone
+    );
+
+  if (phone === null) {
+    return;
+  }
+
+  await fetch("/api/update-phone", {
+    method: "POST",
+    headers: {
+      "Content-Type":
+        "application/json"
+    },
+    body: JSON.stringify({
+      token,
+      phone
+    })
+  });
+
+  loadData();
+
+}
   await fetch("/api/update-role",{
     method:"POST",
     headers:{
