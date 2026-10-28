@@ -371,7 +371,35 @@ app.post("/api/add-member", async (req, res) => {
     });
   }
 });
+app.post("/api/update-phone", async (req, res) => {
 
+  const { token, phone } = req.body;
+
+  const member =
+    members.find(m => m.token === token);
+
+  if (!member) {
+    return res.status(404).json({
+      error: "Member not found"
+    });
+  }
+
+  member.phone = phone;
+
+  fs.writeFileSync(
+    "./members.json",
+    JSON.stringify(
+      members,
+      null,
+      2
+    )
+  );
+
+  res.json({
+    success: true
+  });
+
+});
 const PORT =
   process.env.PORT || 3000;
 app.listen(PORT, () => {
