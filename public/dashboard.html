@@ -468,39 +468,9 @@ alert(
 }
 async function showAvailableNow(){
 
-  const res =
-    await fetch("/api/status");
+  alert("נלחץ הכפתור");
 
-  const data =
-    await res.json();
-
-  const availableMembers =
-    data.filter(
-      m => m.status === "available"
-    );
-
-  if (!availableMembers.length) {
-
-    alert("אין חברים זמינים כרגע");
-
-    return;
-  }
-
-  const list =
-    availableMembers
-      .map(m => m.name)
-      .join("\n");
-
-  navigator.clipboard.writeText(
-    list
-  );
-
-  alert(
-    "הועתקה רשימת הזמינים ללוח\n\n" +
-    list
-  );
-
-}    
+}
     function logout(){
 
   localStorage.removeItem("admin");
