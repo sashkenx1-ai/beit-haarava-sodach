@@ -355,7 +355,22 @@ document.getElementById("tableBody")
 
 }
 async function updateRole(token, role){
-async function updatePhone(token, currentPhone){
+
+  await fetch("/api/update-role",{
+    method:"POST",
+    headers:{
+      "Content-Type":"application/json"
+    },
+    body:JSON.stringify({
+      token,
+      role
+    })
+  });
+
+  loadData();
+
+}
+    async function updatePhone(token, currentPhone){
 
   const phone =
     prompt(
@@ -376,20 +391,6 @@ async function updatePhone(token, currentPhone){
     body: JSON.stringify({
       token,
       phone
-    })
-  });
-
-  loadData();
-
-}
-  await fetch("/api/update-role",{
-    method:"POST",
-    headers:{
-      "Content-Type":"application/json"
-    },
-    body:JSON.stringify({
-      token,
-      role
     })
   });
 
