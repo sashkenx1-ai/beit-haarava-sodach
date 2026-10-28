@@ -349,8 +349,8 @@ ${
 
 <td>
 <button
-onclick="alert('בקרוב')">
-✏️ ערוך
+onclick="deleteMember('${member.token}','${member.name}')">
+🗑️ מחק
 </button>
 </td>
 </tr>
@@ -501,7 +501,44 @@ async function showAvailableNow(){
   );
 
 }
+async function deleteMember(token, name){
 
+  const ok =
+    confirm(
+      "למחוק את " +
+      name +
+      " ?"
+    );
+
+  if (!ok) {
+    return;
+  }
+
+  const res =
+    await fetch(
+      "/api/delete-member",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type":
+            "application/json"
+        },
+        body: JSON.stringify({
+          token
+        })
+      }
+    );
+
+  const result =
+    await res.json();
+
+  if (result.success) {
+    loadData();
+  } else {
+    alert("שגיאה במחיקה");
+  }
+
+}
     function logout(){
 
   localStorage.removeItem("admin");
