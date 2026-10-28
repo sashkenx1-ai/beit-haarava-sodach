@@ -312,10 +312,20 @@ onclick="copyLink('${member.token}')">
 <td>
 ${member.phone || "-"}
 <br>
+
 <button
 onclick="updatePhone('${member.token}','${member.phone || ""}')">
 📞 ערוך
 </button>
+
+${member.phone ? `
+<br>
+<button
+onclick="openWhatsApp('${member.phone}')">
+💬 וואטסאפ
+</button>
+` : ""}
+
 </td>
 <td>
 ${
