@@ -59,21 +59,7 @@ app.post("/api/admin-login", (req, res) => {
   });
 
 });
-app.post("/api/admin-login", (req, res) => {
 
-  const { password } = req.body;
-
-  if (password === ADMIN_PASSWORD) {
-    return res.json({
-      success: true
-    });
-  }
-
-  res.status(401).json({
-    success: false
-  });
-
-});
 app.get("/api/me", (req, res) => {
 
   const token = req.query.token;
