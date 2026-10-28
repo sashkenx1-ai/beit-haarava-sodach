@@ -95,6 +95,11 @@ th{
 ➕ הוסף חבר
 
 </button>
+<button onclick="whatsappAll()">
+
+📢 וואטסאפ לכולם
+
+</button>
 
 <input
 id="searchBox"
@@ -425,6 +430,34 @@ async function updateRole(token, role){
     "https://wa.me/" +
     whatsappPhone,
     "_blank"
+  );
+
+}
+    async function whatsappAll(){
+
+  const res =
+    await fetch("/api/status");
+
+  const data =
+    await res.json();
+
+  const phones =
+    data
+      .filter(m => m.phone)
+      .map(m =>
+        m.phone.replace(/\D/g, "")
+      );
+
+  if (!phones.length) {
+    alert("לא נמצאו מספרי טלפון");
+    return;
+  }
+
+  alert(
+    "נמצאו " +
+    phones.length +
+    " מספרים.\n\n" +
+    phones.join(", ")
   );
 
 }
