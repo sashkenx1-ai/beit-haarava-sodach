@@ -444,7 +444,7 @@ async function updateRole(token, role){
     );
 
   window.open(
-    `https://wa.me/${whatsappPhone}?text=${message}`,
+`https://api.whatsapp.com/send?phone=${whatsappPhone}&text=${message}`,
     "_blank"
   );
 
