@@ -336,8 +336,7 @@ onclick="updatePhone('${member.token}','${member.phone || ""}')">
 ${member.phone ? `
 <br>
 <button
-onclick="openWhatsApp('${member.phone}')">
-💬 וואטסאפ
+onclick="openWhatsApp('${member.phone}','${member.token}')"💬 וואטסאפ
 </button>
 ` : ""}
 
@@ -422,23 +421,29 @@ async function updateRole(token, role){
   loadData();
 
 }
-    function openWhatsApp(phone){
+   function openWhatsApp(phone, token){
 
   const cleanPhone =
     phone.replace(/\D/g, "");
 
-  let whatsappPhone =
-    cleanPhone;
+  const whatsappPhone =
+    cleanPhone.startsWith("0")
+      ? "972" + cleanPhone.substring(1)
+      : cleanPhone;
 
-  if (cleanPhone.startsWith("0")) {
-    whatsappPhone =
-      "972" +
-      cleanPhone.substring(1);
-  }
+  const link =
+    window.location.origin +
+    "/?token=" +
+    token;
+
+  const message =
+    encodeURIComponent(
+      "שלום,\nזה הקישור האישי שלך למערכת:\n" +
+      link
+    );
 
   window.open(
-    "https://wa.me/" +
-    whatsappPhone,
+    `https://wa.me/${whatsappPhone}?text=${message}`,
     "_blank"
   );
 
