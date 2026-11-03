@@ -144,16 +144,15 @@ app.get("/api/status", async (req, res) => {
     const item =
       firestoreData[member.token];
 
- if (!item) {
+if (!item) {
 
  return {
   token: member.token,
   name: member.name,
-  phone: member.phone || "",
+  phone: "",
   role: "",
   status: "unknown"
-};
-
+ };
 }
 
     const ageHours =
@@ -163,7 +162,7 @@ app.get("/api/status", async (req, res) => {
 
   return {
   ...item,
-  phone: member.phone || "",
+  phone: item.phone || "",
   role: item.role || "",
   status:
     ageHours > 24
@@ -375,30 +374,33 @@ app.post("/api/update-phone", async (req, res) => {
 
   const { token, phone } = req.body;
 
-  const member =
-    members.find(m => m.token === token);
+  const docRef =
+    db.collection("membersStatus")
+      .doc(token);
 
-  if (!member) {
+  const existing =
+    await docRef.get();
+
+  if (existing.exists) {
+
+    await docRef.update({
+      phone
+    });
+
+  } else {
+
     return res.status(404).json({
       error: "Member not found"
     });
+
   }
-
-  member.phone = phone;
-
-  fs.writeFileSync(
-    "./members.json",
-    JSON.stringify(
-      members,
-      null,
-      2
-    )
-  );
 
   res.json({
     success: true
   });
-  });
+
+});
+
 app.post("/api/delete-member", async (req, res) => {
 
   try {
