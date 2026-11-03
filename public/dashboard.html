@@ -106,6 +106,10 @@ th{
     <button onclick="exportMembers()">
 💾 גיבוי JSON
 </button>
+    <button onclick="toggleAdminTestMode()">
+🧪 מצב בדיקה
+</button>
+
 <input
 id="searchBox"
 type="text"
@@ -143,7 +147,8 @@ font-size:16px;
 <script>
 const isAdmin =
   localStorage.getItem("admin");
-
+let adminTestMode =
+  localStorage.getItem("adminTestMode") === "true";
 if (isAdmin !== "true") {
 
   const password =
@@ -585,7 +590,22 @@ async function deleteMember(token, name){
   );
 
 }
+function toggleAdminTestMode(){
 
+  adminTestMode = !adminTestMode;
+
+  localStorage.setItem(
+    "adminTestMode",
+    adminTestMode
+  );
+
+  alert(
+    adminTestMode
+      ? "מצב בדיקה הופעל"
+      : "מצב בדיקה בוטל"
+  );
+
+}
     function logout(){
 
   localStorage.removeItem("admin");
