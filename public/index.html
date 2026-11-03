@@ -108,12 +108,16 @@ function login(){
         "token",
         token
     );
+
+    loadMember();
+}
+
 function logout(){
+
     localStorage.removeItem("token");
     localStorage.removeItem("admin");
+
     location.reload();
-}
-    loadMember();
 }
 async function loadMember(){
 
