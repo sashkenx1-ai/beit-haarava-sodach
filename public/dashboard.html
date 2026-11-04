@@ -536,6 +536,60 @@ async function showAvailableNow(){
   );
 
 }
+function showAvailableMap(){
+
+  const mapDiv =
+    document.getElementById("mapContainer");
+
+  mapDiv.style.display = "block";
+
+  fetch("/api/status")
+    .then(res => res.json())
+    .then(data => {
+
+      const availableMembers =
+        data.filter(
+          m =>
+            m.status === "available" &&
+            m.lat &&
+            m.lng
+        );
+
+      if (!availableMembers.length) {
+
+        mapDiv.innerHTML =
+          "<h3>אין חברים זמינים עם מיקום</h3>";
+
+        return;
+      }
+
+      let html =
+        "<h3>🗺️ מפת זמינים</h3>";
+
+      availableMembers.forEach(member => {
+
+        html += `
+          <div style="
+            padding:10px;
+            margin:5px 0;
+            border:1px solid #ccc;
+            border-radius:8px;
+          ">
+            🟢 ${member.name}
+            <br>
+            <a href="https://www.google.com/maps?q=${member.lat},${member.lng}" target="_blank">
+              📍 פתח במפה
+            </a>
+          </div>
+        `;
+
+      });
+
+      mapDiv.innerHTML = html;
+
+    });
+
+}    
 async function deleteMember(token, name){
 
   const ok =
