@@ -212,30 +212,81 @@ async function updateLocation(){
 }
 async function setStatus(status){
 
-    const res =
-        await fetch(
-            "/api/update-status",
-            {
-                method:"POST",
-                headers:{
-                    "Content-Type":
-                    "application/json"
-                },
-                body:JSON.stringify({
-                    token,
-                    status
-                })
+    if(status === "available"){
+
+        navigator.geolocation.getCurrentPosition(
+
+            async pos => {
+
+                const lat = pos.coords.latitude;
+                const lng = pos.coords.longitude;
+
+                await fetch(
+                    "/api/update",
+                    {
+                        method:"POST",
+                        headers:{
+                            "Content-Type":"application/json"
+                        },
+                        body:JSON.stringify({
+                            token,
+                            lat,
+                            lng
+                        })
+                    }
+                );
+
+                await fetch(
+                    "/api/update-status",
+                    {
+                        method:"POST",
+                        headers:{
+                            "Content-Type":"application/json"
+                        },
+                        body:JSON.stringify({
+                            token,
+                            status
+                        })
+                    }
+                );
+
+                document.getElementById("result")
+                    .innerHTML = "🟢 זמין";
+
+            },
+
+            err => {
+
+                alert(
+                    "לא ניתן לקבל מיקום: " +
+                    err.message
+                );
+
             }
+
         );
 
-    const result =
-        await res.json();
+        return;
+    }
+
+    await fetch(
+        "/api/update-status",
+        {
+            method:"POST",
+            headers:{
+                "Content-Type":
+                "application/json"
+            },
+            body:JSON.stringify({
+                token,
+                status
+            })
+        }
+    );
 
     document.getElementById("result")
         .innerHTML =
-        status === "available"
-        ? "🟢 זמין"
-        : "🔴 לא זמין";
+        "🔴 לא זמין";
 }
 loadMember();
 
