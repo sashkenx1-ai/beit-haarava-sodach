@@ -379,15 +379,15 @@ ${
 <td>
 
 <button
+style="width:40px;padding:6px;"
 onclick="editMember('${member.token}','${member.name}')">
-✏️ ערוך
+✏️
 </button>
 
-<br><br>
-
 <button
+style="width:40px;padding:6px;background:#d32f2f;"
 onclick="deleteMember('${member.token}','${member.name}')">
-🗑️ מחק
+🗑️
 </button>
 
 </td>
@@ -626,6 +626,43 @@ function showAvailableMap(){
   );
 
   loadData();
+
+}
+    async function editMember(token, currentName){
+
+  const name =
+    prompt(
+      "הכנס שם חדש",
+      currentName
+    );
+
+  if (!name) {
+    return;
+  }
+
+  const res =
+    await fetch(
+      "/api/update-name",
+      {
+        method:"POST",
+        headers:{
+          "Content-Type":"application/json"
+        },
+        body:JSON.stringify({
+          token,
+          name
+        })
+      }
+    );
+
+  const result =
+    await res.json();
+
+  if(result.success){
+    loadData();
+  }else{
+    alert("שגיאה בעדכון השם");
+  }
 
 }
 async function deleteMember(token, name){
