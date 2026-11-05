@@ -377,10 +377,19 @@ ${
 </td>
 
 <td>
+
+<button
+onclick="editMember('${member.token}','${member.name}')">
+✏️ ערוך
+</button>
+
+<br><br>
+
 <button
 onclick="deleteMember('${member.token}','${member.name}')">
 🗑️ מחק
 </button>
+
 </td>
 </tr>
 `;
@@ -589,7 +598,36 @@ function showAvailableMap(){
 
     });
 
-}    
+}   
+    async function editMember(token, currentName){
+
+  const name =
+    prompt(
+      "הכנס שם חדש",
+      currentName
+    );
+
+  if (!name) {
+    return;
+  }
+
+  await fetch(
+    "/api/update-name",
+    {
+      method:"POST",
+      headers:{
+        "Content-Type":"application/json"
+      },
+      body:JSON.stringify({
+        token,
+        name
+      })
+    }
+  );
+
+  loadData();
+
+}
 async function deleteMember(token, name){
 
   const ok =
