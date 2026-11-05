@@ -362,16 +362,18 @@ vertical-align:middle;
 </button>
 ` : ""}
 
-</td>
-<td>
+</td><td>
 ${
   member.lat && member.lng
   ? `
- <button
 <button
 style="
 width:40px;
+height:34px;
 padding:6px;
+background:#f3f3f3;
+border:1px solid #999;
+border-radius:2px;
 "
 onclick="window.open('https://www.google.com/maps?q=${member.lat},${member.lng}','_blank')">
 
@@ -384,6 +386,12 @@ fill="#1976d2"
 style="vertical-align:middle;">
 <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/>
 </svg>
+
+</button>
+`
+  : '-'
+}
+</td>
 
 </button>
   `
