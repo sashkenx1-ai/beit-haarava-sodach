@@ -283,6 +283,28 @@ app.post("/api/update-name", async (req, res) => {
 
   const { token, name } = req.body;
 
+  const member =
+    members.find(
+      m => m.token === token
+    );
+
+  if (!member) {
+    return res.status(404).json({
+      error: "Member not found"
+    });
+  }
+
+  member.name = name;
+
+  fs.writeFileSync(
+    "./members.json",
+    JSON.stringify(
+      members,
+      null,
+      2
+    )
+  );
+
   const docRef =
     db.collection("membersStatus")
       .doc(token);
@@ -290,15 +312,13 @@ app.post("/api/update-name", async (req, res) => {
   const existing =
     await docRef.get();
 
-  if (!existing.exists) {
-    return res.status(404).json({
-      error: "Member not found"
-    });
-  }
+  if (existing.exists) {
 
-  await docRef.update({
-    name
-  });
+    await docRef.update({
+      name
+    });
+
+  }
 
   res.json({
     success: true
