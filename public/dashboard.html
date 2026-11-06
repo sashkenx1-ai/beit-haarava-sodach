@@ -809,13 +809,24 @@ const icon =
     `,
     iconSize:[18,18]
   });
-      const marker =
+ const marker =
   L.marker(
     [lat, lng],
     { icon }
   )
-  .bindPopup(...)
-;
+  .bindPopup(`
+    <b>${member.name}</b>
+    <br>
+    📞 ${member.phone || "ללא טלפון"}
+    <br>
+    🎖️ ${member.role || "ללא תפקיד"}
+    <br>
+    🕒 ${
+      member.updated
+        ? new Date(member.updated).toLocaleString("he-IL")
+        : "לא ידוע"
+    }
+  `);
 
 markers.addLayer(marker);
 
