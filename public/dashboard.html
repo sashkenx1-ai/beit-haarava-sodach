@@ -665,7 +665,9 @@ function showAvailableMap(){
     document.getElementById("mapContainer");
 
   mapDiv.style.display = "block";
-
+mapDiv.scrollIntoView({
+  behavior: "smooth"
+});
   fetch("/api/status")
     .then(res => res.json())
     .then(data => {
