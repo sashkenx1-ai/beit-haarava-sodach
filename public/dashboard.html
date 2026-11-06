@@ -686,34 +686,52 @@ function showAvailableMap(){
         return;
       }
 
-      let html =
-        "<h3>🗺️ מפת זמינים</h3>";
+      mapDiv.innerHTML =
+        '<div id="availableMap" style="width:100%;height:500px;"></div>';
+
+      const first =
+        availableMembers[0];
+
+      const map =
+        L.map("availableMap").setView(
+          [first.lat, first.lng],
+          12
+        );
+
+      L.tileLayer(
+        "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+        {
+          attribution:
+            "&copy; OpenStreetMap"
+        }
+      ).addTo(map);
+
+      const bounds =
+        [];
 
       availableMembers.forEach(member => {
 
-        html += `
-          <div style="
-            padding:10px;
-            margin:5px 0;
-            border:1px solid #ccc;
-            border-radius:8px;
-          ">
-            🟢 ${member.name}
-            <br>
-            <a href="https://www.google.com/maps?q=${member.lat},${member.lng}" target="_blank">
-              📍 פתח במפה
-            </a>
-          </div>
-        `;
+        const lat =
+          parseFloat(member.lat);
+
+        const lng =
+          parseFloat(member.lng);
+
+        bounds.push([lat, lng]);
+
+        L.marker([lat, lng])
+          .addTo(map)
+          .bindPopup(
+            `<b>${member.name}</b>`
+          );
 
       });
 
-      mapDiv.innerHTML = html;
+      map.fitBounds(bounds);
 
     });
 
-}   
-   
+}
     async function editMember(token, currentName){
 
   const name =
