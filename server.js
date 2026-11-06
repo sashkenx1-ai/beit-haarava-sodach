@@ -82,7 +82,17 @@ app.post("/api/update", async (req, res) => {
 
   const member =
     members.find(m => m.token === token);
+const docRef =
+  db.collection("membersStatus")
+    .doc(token);
 
+const existing =
+  await docRef.get();
+
+const existingData =
+  existing.exists
+    ? existing.data()
+    : {};
   if (!member) {
     return res.status(401).json({
       error: "Unauthorized"
@@ -199,17 +209,7 @@ app.post("/api/update-role", async (req, res) => {
 
   const member =
     members.find(m => m.token === token);
-const docRef =
-  db.collection("membersStatus")
-    .doc(token);
 
-const existing =
-  await docRef.get();
-
-const existingData =
-  existing.exists
-    ? existing.data()
-    : {};
   if (!member) {
     return res.status(401).json({
       error: "Unauthorized"
