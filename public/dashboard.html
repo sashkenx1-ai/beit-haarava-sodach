@@ -698,8 +698,20 @@ mapDiv.scrollIntoView({
         return;
       }
 
-      mapDiv.innerHTML =
-        '<div id="availableMap" style="width:100%;height:500px;"></div>';
+      mapDiv.innerHTML = `
+  <div style="margin-bottom:10px;">
+    <button
+      class="top-btn"
+      onclick="hideMap()">
+      ❌ סגור מפה
+    </button>
+  </div>
+
+  <div
+    id="availableMap"
+    style="width:100%;height:500px;">
+  </div>
+`;
 
       const first =
         availableMembers[0];
