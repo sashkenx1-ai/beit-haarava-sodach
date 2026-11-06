@@ -99,6 +99,13 @@ const params =
 let token =
     params.get("token") ||
     localStorage.getItem("token");
+    if (params.get("token")) {
+    localStorage.setItem(
+        "token",
+        params.get("token")
+    );
+}
+
 function login(){
 
     token =
