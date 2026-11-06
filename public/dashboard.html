@@ -723,16 +723,19 @@ mapDiv.scrollIntoView({
 
         L.marker([lat, lng])
           .addTo(map)
-         .bindPopup(
-  `
+      .bindPopup(`
   <b>${member.name}</b>
   <br>
-  ${member.phone || "ללא טלפון"}
+  📞 ${member.phone || "ללא טלפון"}
   <br>
-  ${member.role || "ללא תפקיד"}
-  `
-);
-
+  🎖️ ${member.role || "ללא תפקיד"}
+  <br>
+  🕒 ${
+    member.updated
+      ? new Date(member.updated).toLocaleString("he-IL")
+      : "לא ידוע"
+  }
+`);
       });
 
       map.fitBounds(bounds);
