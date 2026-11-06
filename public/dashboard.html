@@ -33,7 +33,25 @@ justify-content:center;
     height:18px;
     vertical-align:middle;
 }
+.top-btn{
+    height:40px;
+    padding:0 14px;
+    border:1px solid #999;
+    border-radius:6px;
+    background:#f3f3f3;
+    cursor:pointer;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:6px;
+    font-size:14px;
+    transition:all .2s;
+}
 
+.top-btn:hover{
+    background:#e3f2fd;
+    border-color:#1976d2;
+}
 body{
     font-family:Arial,sans-serif;
     max-width:1000px;
@@ -117,29 +135,25 @@ th{
 
 <div style="margin-bottom:20px;display:flex;gap:10px;">
 
-<button onclick="addMember()">
-
+<button class="top-btn" onclick="addMember()">
 ➕ הוסף חבר
-
 </button>
-<button onclick="whatsappAll()">
-
+<button class="top-btn" onclick="whatsappAll()">
 📢 וואטסאפ לכולם
-
 </button>
-<button onclick="showAvailableNow()">
+<button class="top-btn" onclick="showAvailableNow()">
 🟢 מי זמין עכשיו
 </button>
-    <button onclick="showAvailableMap()">
+ <button class="top-btn" onclick="showAvailableMap()">
 🗺️ מפת זמינים
 </button>
-    <button onclick="exportMembers()">
+<button class="top-btn" onclick="exportMembers()">
 💾 גיבוי JSON
 </button>
-    <button onclick="toggleAdminTestMode()">
+<button class="top-btn" onclick="toggleAdminTestMode()">
 🧪 מצב בדיקה
 </button>
-<button onclick="loadData()">
+<button class="top-btn" onclick="loadData()">
 🔄 רענן
 </button>
 <input
