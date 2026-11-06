@@ -13,6 +13,19 @@ href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
 <script
 src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
 </script>
+    <link
+rel="stylesheet"
+href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css"
+/>
+
+<link
+rel="stylesheet"
+href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css"
+/>
+
+<script
+src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js">
+</script>
     <style>
 
 .icon-btn{
@@ -750,6 +763,8 @@ console.log(
 
       const bounds =
         [];
+        const markers =
+  L.markerClusterGroup();
 function getMarkerColor(role){
 
   if(role === "רבשץ") return "orange";
@@ -794,25 +809,18 @@ const icon =
     `,
     iconSize:[18,18]
   });
-L.marker(
-  [lat, lng],
-  { icon }
-)          .addTo(map)
-      .bindPopup(`
-  <b>${member.name}</b>
-  <br>
-  📞 ${member.phone || "ללא טלפון"}
-  <br>
-  🎖️ ${member.role || "ללא תפקיד"}
-  <br>
-  🕒 ${
-    member.updated
-      ? new Date(member.updated).toLocaleString("he-IL")
-      : "לא ידוע"
-  }
-`);
-      });
+      const marker =
+  L.marker(
+    [lat, lng],
+    { icon }
+  )
+  .bindPopup(...)
+;
 
+markers.addLayer(marker);
+
+      });
+map.addLayer(markers);
       map.fitBounds(bounds);
 
     });
