@@ -155,9 +155,6 @@ th{
  <button class="top-btn" onclick="showAvailableMap()">
 🗺️ מפת זמינים
 </button>
-    <button class="top-btn" onclick="hideMap()">
-❌ סגור מפה
-</button>
 <button class="top-btn" onclick="exportMembers()">
 💾 גיבוי JSON
 </button>
@@ -662,8 +659,7 @@ async function showAvailableNow(){
   );
 
 }
-function showAvailableMap(){
-function hideMap(){
+    function hideMap(){
 
   const mapDiv =
     document.getElementById("mapContainer");
@@ -671,6 +667,8 @@ function hideMap(){
   mapDiv.style.display = "none";
 
 }
+function showAvailableMap(){
+
   const mapDiv =
     document.getElementById("mapContainer");
 
