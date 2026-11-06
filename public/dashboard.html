@@ -692,7 +692,12 @@ mapDiv.scrollIntoView({
             m.lat &&
             m.lng
         );
-
+console.log(
+  "זמינים:",
+  data.filter(
+    m => m.status === "available"
+  )
+);
       if (!availableMembers.length) {
 
         mapDiv.innerHTML =
