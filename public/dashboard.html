@@ -6,7 +6,28 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <title>סד"כ בית הערבה</title>
+.icon-btn{
+    width:40px;
+    height:34px;
+    padding:6px;
+    margin:2px;
+    background:#f3f3f3;
+    border:1px solid #999;
+    border-radius:6px;
+    cursor:pointer;
+    transition:all .2s;
+}
 
+.icon-btn:hover{
+    background:#e3f2fd;
+    border-color:#1976d2;
+}
+
+.icon-btn svg{
+    width:18px;
+    height:18px;
+    vertical-align:middle;
+}
 <style>
 
 body{
@@ -367,15 +388,7 @@ ${
   member.lat && member.lng
   ? `
 <button
-style="
-width:40px;
-height:34px;
-padding:6px;
-margin:2px;
-background:#f3f3f3;
-border:1px solid #999;
-border-radius:6px;
-"
+class="icon-btn"
 onclick="window.open('https://www.google.com/maps?q=${member.lat},${member.lng}','_blank')">
 
 <svg
@@ -397,14 +410,7 @@ style="vertical-align:middle;">
 <td>
 
 <button
-style="
-width:40px;
-height:34px;
-padding:6px;
-margin:2px;
-background:#f3f3f3;
-border:1px solid #999;
-border-radius:6px;
+class="icon-btn"
 "onclick="editMember('${member.token}','${member.name}')">
 
 <svg
@@ -419,15 +425,7 @@ fill="#1976d2">
 </button>
 
 <button
-style="
-width:40px;
-height:34px;
-padding:6px;
-margin:2px;
-background:#f3f3f3;
-border:1px solid #999;
-border-radius:6px;
-"
+class="icon-btn"
 
 onclick="deleteMember('${member.token}','${member.name}')">
 
