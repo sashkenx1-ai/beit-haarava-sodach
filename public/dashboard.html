@@ -659,12 +659,17 @@ async function showAvailableNow(){
   );
 
 }
-    function hideMap(){
+ function hideMap(){
 
   const mapDiv =
     document.getElementById("mapContainer");
 
   mapDiv.style.display = "none";
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
 
 }
 function showAvailableMap(){
