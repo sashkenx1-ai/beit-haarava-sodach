@@ -100,18 +100,20 @@ app.post("/api/update", async (req, res) => {
   const available =
     distance <= RADIUS_KM;
 
-  await db
-  .collection("membersStatus")
-  .doc(token)
-  .set({
-    token,
-    name: member.name,
-    role: member.role || "",
-    available,
-    lat,
-    lng,
-    updated: new Date().toISOString()
-  });
+ await db
+.collection("membersStatus")
+.doc(token)
+.set({
+  token,
+  name: member.name,
+  phone: existingData.phone || "",
+  role: existingData.role || "",
+  available,
+  lat,
+  lng,
+  updated: new Date().toISOString()
+});
+
 
   res.json({
     success: true,
@@ -197,7 +199,17 @@ app.post("/api/update-role", async (req, res) => {
 
   const member =
     members.find(m => m.token === token);
+const docRef =
+  db.collection("membersStatus")
+    .doc(token);
 
+const existing =
+  await docRef.get();
+
+const existingData =
+  existing.exists
+    ? existing.data()
+    : {};
   if (!member) {
     return res.status(401).json({
       error: "Unauthorized"
