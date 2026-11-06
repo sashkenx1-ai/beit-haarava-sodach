@@ -385,6 +385,7 @@ ${member.phone ? `
 <br>
 <button
 class="icon-btn"
+title="שליחת WhatsApp"
 onclick="openWhatsApp('${member.phone}','${member.token}')">
 
 <svg
@@ -407,6 +408,7 @@ ${
   ? `
 <button
 class="icon-btn"
+title="פתיחת מיקום"
 onclick="window.open('https://www.google.com/maps?q=${member.lat},${member.lng}','_blank')">
 
 <svg
@@ -429,6 +431,7 @@ style="vertical-align:middle;">
 
 <button
 class="icon-btn"
+title="עריכת שם"
 "onclick="editMember('${member.token}','${member.name}')">
 
 <svg
@@ -444,7 +447,7 @@ fill="#1976d2">
 
 <button
 class="icon-btn"
-
+title="מחיקת חבר"
 onclick="deleteMember('${member.token}','${member.name}')">
 
 <svg
