@@ -276,12 +276,13 @@ app.post("/api/update-status", async (req, res) => {
   } else {
 
     await docRef.set({
-      token,
-      name: member.name,
-      role: "",
-      available: status === "available",
-      updated: new Date().toISOString()
-    });
+  token,
+  name: member.name,
+  phone: "",
+  role: "",
+  available: status === "available",
+  updated: new Date().toISOString()
+});
 
   }
 
