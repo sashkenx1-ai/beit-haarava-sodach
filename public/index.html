@@ -97,8 +97,8 @@ const params =
     new URLSearchParams(window.location.search);
 
 let token =
-    localStorage.getItem("token") ||
-    params.get("token");
+    params.get("token") ||
+    localStorage.getItem("token");
 function login(){
 
     token =
