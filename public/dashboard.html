@@ -723,9 +723,15 @@ mapDiv.scrollIntoView({
 
         L.marker([lat, lng])
           .addTo(map)
-          .bindPopup(
-            `<b>${member.name}</b>`
-          );
+         .bindPopup(
+  `
+  <b>${member.name}</b>
+  <br>
+  ${member.phone || "ללא טלפון"}
+  <br>
+  ${member.role || "ללא תפקיד"}
+  `
+);
 
       });
 
