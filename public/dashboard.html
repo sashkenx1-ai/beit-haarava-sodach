@@ -696,7 +696,7 @@ mapDiv.scrollIntoView({
   fetch("/api/status")
     .then(res => res.json())
     .then(data => {
-
+console.log(data);
       const availableMembers =
         data.filter(
           m =>
