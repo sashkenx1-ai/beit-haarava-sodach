@@ -704,23 +704,7 @@ console.log(data);
             m.lat &&
             m.lng
         );
-console.log(
-  "זמינים:",
-  data.filter(
-    m => m.status === "available"
-  )
-);
-        data
-  .filter(m => m.status === "available")
-  .forEach(m => {
-    console.log(
-      m.name,
-      "lat:",
-      m.lat,
-      "lng:",
-      m.lng
-    );
-  });
+
       if (!availableMembers.length) {
 
         mapDiv.innerHTML =
