@@ -459,7 +459,8 @@ fill="#25D366">
 
 </td><td>
 ${
-  member.lat && member.lng
+member.lat != null &&
+member.lng != null
   ? `
 <button
 class="icon-btn"
@@ -487,7 +488,7 @@ style="vertical-align:middle;">
 <button
 class="icon-btn"
 title="עריכת שם"
-"onclick="editMember('${member.token}','${member.name}')">
+onclick="editMember('${member.token}','${member.name}')">
 
 <svg
 xmlns="http://www.w3.org/2000/svg"
@@ -696,14 +697,14 @@ mapDiv.scrollIntoView({
   fetch("/api/status")
     .then(res => res.json())
     .then(data => {
-console.log(data);
-      const availableMembers =
-        data.filter(
-          m =>
-            m.status === "available" &&
-            m.lat &&
-            m.lng
-        );
+
+     const availableMembers =
+  data.filter(
+    m =>
+      m.status === "available" &&
+      m.lat != null &&
+      m.lng != null
+  );
 
       if (!availableMembers.length) {
 
@@ -762,11 +763,7 @@ function getMarkerColor(role){
 
 }
       availableMembers.forEach(member => {
-console.log(
-  member.name,
-  member.lat,
-  member.lng
-);
+
         const lat =
           parseFloat(member.lat);
 
